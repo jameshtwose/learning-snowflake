@@ -10,7 +10,7 @@ r"""Submodule create.py includes the following functions:
 
 
 import snowflake.connector
-from utils import get_snowflake_connection
+from .utils import get_snowflake_connection
 
 
 def create_warehouse(
