@@ -60,7 +60,7 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#snowflake-utilities-upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="#snowflake-utilities-utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
 </ul>
 </ul>
@@ -76,7 +76,10 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
-<li><a class="reference internal" href="#snowflake-utilities-upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
+<li><a class="reference internal" href="#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a><ul>
+<li><a class="reference internal" href="#snowflake_utilities.upload.upload_pandas_df_to_snowflake"><code class="docutils literal notranslate"><span class="pre">upload_pandas_df_to_snowflake()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#snowflake-utilities-utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
 </ul>
 </ul>
@@ -111,8 +114,43 @@
   <section id="snowflake-utilities-create">
 <h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code><a class="headerlink" href="#snowflake-utilities-create" title="Permalink to this heading">¶</a></h1>
 </section>
-<section id="snowflake-utilities-upload">
-<h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code><a class="headerlink" href="#snowflake-utilities-upload" title="Permalink to this heading">¶</a></h1>
+<section id="module-snowflake_utilities.upload">
+<span id="snowflake-utilities-upload"></span><h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code><a class="headerlink" href="#module-snowflake_utilities.upload" title="Permalink to this heading">¶</a></h1>
+<p>Submodule upload.py includes the following functions:</p>
+<ul class="simple">
+<li><p><strong>upload_pandas_df_to_snowflake</strong> - uploads a Pandas DataFrame to Snowflake</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.upload.upload_pandas_df_to_snowflake">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.upload.</span></span><span class="sig-name descname"><span class="pre">upload_pandas_df_to_snowflake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">~pandas.core.frame.DataFrame</span> <span class="pre">=</span> <span class="pre">Empty</span> <span class="pre">DataFrame</span> <span class="pre">Columns:</span> <span class="pre">[]</span> <span class="pre">Index:</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warehouse_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'tiny_warehouse_mg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'mydb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'myschema'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'mytable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_exists:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'replace'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/upload.html#upload_pandas_df_to_snowflake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.upload.upload_pandas_df_to_snowflake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a Pandas DataFrame to Snowflake.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>The Pandas DataFrame to upload</p>
+</dd>
+<dt><strong>warehouse_name</strong><span class="classifier">str</span></dt><dd><p>The name of the warehouse to use</p>
+</dd>
+<dt><strong>database_name</strong><span class="classifier">str</span></dt><dd><p>The name of the database to use in Snowflake</p>
+</dd>
+<dt><strong>schema_name</strong><span class="classifier">str</span></dt><dd><p>The name of the schema to use in Snowflake</p>
+</dd>
+<dt><strong>table_name</strong><span class="classifier">str</span></dt><dd><p>The name of the table to use in Snowflake</p>
+</dd>
+<dt><strong>if_exists</strong><span class="classifier">str</span></dt><dd><p>The action to take if the table already exists in Snowflake
+Options are ‘fail’, ‘replace’, ‘append’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>new_df</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>The Pandas DataFrame that was pulled from Snowflake following the upload</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="snowflake-utilities-utils">
 <h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code><a class="headerlink" href="#snowflake-utilities-utils" title="Permalink to this heading">¶</a></h1>
