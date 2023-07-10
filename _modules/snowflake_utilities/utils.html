@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>snowflake_utilities.utils &#8212; snowflake-utilities 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="../../index.html">
+          snowflake-utilities</a>
+        <span class="navbar-text pull-left"><b></b></span>
+
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-snowflake_utilities.utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body span12 content" role="main">
+      
+  <h1>Source code for snowflake_utilities.utils</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Submodule utils.py includes the following functions:</span>
+
+<span class="sd">- **get_snowflake_connection** - returns a connection to Snowflake</span>
+
+<span class="sd">- **check_resource_viable** - checks if a resource type is viable (i.e. is the string a resource type in Snowflake)</span>
+
+<span class="sd">- **print_resources** - prints the resources in Snowflake</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">snowflake.connector</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="get_snowflake_connection"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.utils.get_snowflake_connection">[docs]</a><span class="k">def</span> <span class="nf">get_snowflake_connection</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a connection to Snowflake. Assuming the following environment variables are set:</span>
+<span class="sd">    SNOWFLAKE_USERNAME - the username</span>
+<span class="sd">    SNOWFLAKE_PASSWORD - the password</span>
+<span class="sd">    SNOWFLAKE_ACCOUNT - the account name (the beginning of the URL when you log in to Snowflake)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None : None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    conn : snowflake.connector.connection.SnowflakeConnection</span>
+<span class="sd">        A connection to Snowflake</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SNOWFLAKE_USERNAME&quot;</span><span class="p">),</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SNOWFLAKE_PASSWORD&quot;</span><span class="p">),</span>
+        <span class="n">account</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SNOWFLAKE_ACCOUNT&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">conn</span></div>
+
+
+<div class="viewcode-block" id="check_resource_viable"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.utils.check_resource_viable">[docs]</a><span class="k">def</span> <span class="nf">check_resource_viable</span><span class="p">(</span><span class="n">resource_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;WAREHOUSES&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a resource type is viable (i.e. it is not a table).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    resource_type : str</span>
+<span class="sd">        The type of resource to check</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    is_viable : bool</span>
+<span class="sd">        True if the resource type is viable, False otherwise</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">viable_resource_types</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;WAREHOUSE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DATABASE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SCHEMA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TABLE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;WAREHOUSES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DATABASES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SCHEMAS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TABLES&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">is_viable</span> <span class="o">=</span> <span class="n">resource_type</span> <span class="ow">in</span> <span class="n">viable_resource_types</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_viable</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Resource type </span><span class="si">{</span><span class="n">resource_type</span><span class="si">}</span><span class="s2"> is not viable. Please choose from </span><span class="si">{</span><span class="n">viable_resource_types</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="print_resources"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.utils.print_resources">[docs]</a><span class="k">def</span> <span class="nf">print_resources</span><span class="p">(</span>
+    <span class="n">conn</span><span class="p">:</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">SnowflakeConnection</span> <span class="o">=</span> <span class="n">get_snowflake_connection</span><span class="p">(),</span>
+    <span class="n">resource_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;WAREHOUSES&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints the list of resources of a given type in Snowflake.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    conn : snowflake.connector.connection.SnowflakeConnection</span>
+<span class="sd">        A connection to Snowflake</span>
+<span class="sd">    resource_type : str</span>
+<span class="sd">        The type of resource to print (e.g. WAREHOUSES, DATABASES, SCHEMAS, TABLES)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    all_rows : list</span>
+<span class="sd">        A list of all rows returned by the query</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_resource_viable</span><span class="p">(</span><span class="n">resource_type</span><span class="o">=</span><span class="n">resource_type</span><span class="p">)</span>
+
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SHOW </span><span class="si">{</span><span class="n">resource_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">all_rows</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">all_rows</span><span class="p">]</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">all_rows</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, James Twose.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

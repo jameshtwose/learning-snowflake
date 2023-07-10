@@ -61,7 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#snowflake-utilities-utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-snowflake_utilities.utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
 </ul>
 </ul>
 </li>
@@ -75,12 +75,22 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a><ul>
+<li><a class="reference internal" href="#snowflake_utilities.create.create_database"><code class="docutils literal notranslate"><span class="pre">create_database()</span></code></a></li>
+<li><a class="reference internal" href="#snowflake_utilities.create.create_schema"><code class="docutils literal notranslate"><span class="pre">create_schema()</span></code></a></li>
+<li><a class="reference internal" href="#snowflake_utilities.create.create_warehouse"><code class="docutils literal notranslate"><span class="pre">create_warehouse()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a><ul>
 <li><a class="reference internal" href="#snowflake_utilities.upload.upload_pandas_df_to_snowflake"><code class="docutils literal notranslate"><span class="pre">upload_pandas_df_to_snowflake()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#snowflake-utilities-utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
+<li><a class="reference internal" href="#module-snowflake_utilities.utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a><ul>
+<li><a class="reference internal" href="#snowflake_utilities.utils.check_resource_viable"><code class="docutils literal notranslate"><span class="pre">check_resource_viable()</span></code></a></li>
+<li><a class="reference internal" href="#snowflake_utilities.utils.get_snowflake_connection"><code class="docutils literal notranslate"><span class="pre">get_snowflake_connection()</span></code></a></li>
+<li><a class="reference internal" href="#snowflake_utilities.utils.print_resources"><code class="docutils literal notranslate"><span class="pre">print_resources()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -111,8 +121,77 @@
   <div class="row">
     <div class="body span12 content" role="main">
       
-  <section id="snowflake-utilities-create">
-<h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code><a class="headerlink" href="#snowflake-utilities-create" title="Permalink to this heading">¶</a></h1>
+  <section id="module-snowflake_utilities.create">
+<span id="snowflake-utilities-create"></span><h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code><a class="headerlink" href="#module-snowflake_utilities.create" title="Permalink to this heading">¶</a></h1>
+<p>Submodule create.py includes the following functions:</p>
+<ul class="simple">
+<li><p><strong>create_warehouse</strong> - creates a warehouse in Snowflake if it does not already exist</p></li>
+<li><p><strong>create_database</strong> - creates a database in Snowflake if it does not already exist</p></li>
+<li><p><strong>create_schema</strong> - creates a schema in Snowflake if it does not already exist</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.create.create_database">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.create.</span></span><span class="sig-name descname"><span class="pre">create_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn:</span> <span class="pre">~snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">=</span> <span class="pre">&lt;snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'mydb'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/create.html#create_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.create.create_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a database in Snowflake if it does not already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>conn</strong><span class="classifier">snowflake.connector.connection.SnowflakeConnection</span></dt><dd><p>A connection to Snowflake</p>
+</dd>
+<dt><strong>database_name</strong><span class="classifier">str</span></dt><dd><p>The name of the database to create</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>None</strong><span class="classifier">None</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.create.create_schema">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.create.</span></span><span class="sig-name descname"><span class="pre">create_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn:</span> <span class="pre">~snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">=</span> <span class="pre">&lt;snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'myschema'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/create.html#create_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.create.create_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a schema in Snowflake if it does not already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>conn</strong><span class="classifier">snowflake.connector.connection.SnowflakeConnection</span></dt><dd><p>A connection to Snowflake</p>
+</dd>
+<dt><strong>schema_name</strong><span class="classifier">str</span></dt><dd><p>The name of the schema to create</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>None</strong><span class="classifier">None</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.create.create_warehouse">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.create.</span></span><span class="sig-name descname"><span class="pre">create_warehouse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn:</span> <span class="pre">~snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">=</span> <span class="pre">&lt;snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warehouse_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'tiny_warehouse_mg'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/create.html#create_warehouse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.create.create_warehouse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a warehouse in Snowflake if it does not already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>conn</strong><span class="classifier">snowflake.connector.connection.SnowflakeConnection</span></dt><dd><p>A connection to Snowflake</p>
+</dd>
+<dt><strong>warehouse_name</strong><span class="classifier">str</span></dt><dd><p>The name of the warehouse to create</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>None</strong><span class="classifier">None</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-snowflake_utilities.upload">
 <span id="snowflake-utilities-upload"></span><h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code><a class="headerlink" href="#module-snowflake_utilities.upload" title="Permalink to this heading">¶</a></h1>
@@ -152,8 +231,78 @@ Options are ‘fail’, ‘replace’, ‘append’</p>
 </dd></dl>
 
 </section>
-<section id="snowflake-utilities-utils">
-<h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code><a class="headerlink" href="#snowflake-utilities-utils" title="Permalink to this heading">¶</a></h1>
+<section id="module-snowflake_utilities.utils">
+<span id="snowflake-utilities-utils"></span><h1><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code><a class="headerlink" href="#module-snowflake_utilities.utils" title="Permalink to this heading">¶</a></h1>
+<p>Submodule utils.py includes the following functions:</p>
+<ul class="simple">
+<li><p><strong>get_snowflake_connection</strong> - returns a connection to Snowflake</p></li>
+<li><p><strong>check_resource_viable</strong> - checks if a resource type is viable (i.e. is the string a resource type in Snowflake)</p></li>
+<li><p><strong>print_resources</strong> - prints the resources in Snowflake</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.utils.check_resource_viable">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.utils.</span></span><span class="sig-name descname"><span class="pre">check_resource_viable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'WAREHOUSES'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/utils.html#check_resource_viable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.utils.check_resource_viable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a resource type is viable (i.e. it is not a table).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>resource_type</strong><span class="classifier">str</span></dt><dd><p>The type of resource to check</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>is_viable</strong><span class="classifier">bool</span></dt><dd><p>True if the resource type is viable, False otherwise</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.utils.get_snowflake_connection">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.utils.</span></span><span class="sig-name descname"><span class="pre">get_snowflake_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/utils.html#get_snowflake_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.utils.get_snowflake_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a connection to Snowflake. Assuming the following environment variables are set:
+SNOWFLAKE_USERNAME - the username
+SNOWFLAKE_PASSWORD - the password
+SNOWFLAKE_ACCOUNT - the account name (the beginning of the URL when you log in to Snowflake)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>None</strong><span class="classifier">None</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>conn</strong><span class="classifier">snowflake.connector.connection.SnowflakeConnection</span></dt><dd><p>A connection to Snowflake</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="snowflake_utilities.utils.print_resources">
+<span class="sig-prename descclassname"><span class="pre">snowflake_utilities.utils.</span></span><span class="sig-name descname"><span class="pre">print_resources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn:</span> <span class="pre">~snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">=</span> <span class="pre">&lt;snowflake.connector.connection.SnowflakeConnection</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resource_type:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'WAREHOUSES'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/snowflake_utilities/utils.html#print_resources"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#snowflake_utilities.utils.print_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the list of resources of a given type in Snowflake.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>conn</strong><span class="classifier">snowflake.connector.connection.SnowflakeConnection</span></dt><dd><p>A connection to Snowflake</p>
+</dd>
+<dt><strong>resource_type</strong><span class="classifier">str</span></dt><dd><p>The type of resource to print (e.g. WAREHOUSES, DATABASES, SCHEMAS, TABLES)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>all_rows</strong><span class="classifier">list</span></dt><dd><p>A list of all rows returned by the query</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

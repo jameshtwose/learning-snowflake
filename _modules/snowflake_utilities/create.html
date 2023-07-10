@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>snowflake_utilities.create &#8212; snowflake-utilities 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="../../index.html">
+          snowflake-utilities</a>
+        <span class="navbar-text pull-left"><b></b></span>
+
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.create</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-snowflake_utilities.upload"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.upload</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-snowflake_utilities.utils"><code class="docutils literal notranslate"><span class="pre">snowflake_utilities.utils</span></code></a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body span12 content" role="main">
+      
+  <h1>Source code for snowflake_utilities.create</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Submodule create.py includes the following functions:</span>
+
+<span class="sd">- **create_warehouse** - creates a warehouse in Snowflake if it does not already exist</span>
+
+<span class="sd">- **create_database** - creates a database in Snowflake if it does not already exist</span>
+
+<span class="sd">- **create_schema** - creates a schema in Snowflake if it does not already exist</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">snowflake.connector</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_snowflake_connection</span>
+
+
+<div class="viewcode-block" id="create_warehouse"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.create.create_warehouse">[docs]</a><span class="k">def</span> <span class="nf">create_warehouse</span><span class="p">(</span>
+    <span class="n">conn</span><span class="p">:</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">SnowflakeConnection</span> <span class="o">=</span> <span class="n">get_snowflake_connection</span><span class="p">(),</span>
+    <span class="n">warehouse_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tiny_warehouse_mg&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a warehouse in Snowflake if it does not already exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    conn : snowflake.connector.connection.SnowflakeConnection</span>
+<span class="sd">        A connection to Snowflake</span>
+<span class="sd">    warehouse_name : str</span>
+<span class="sd">        The name of the warehouse to create</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None : None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CREATE WAREHOUSE IF NOT EXISTS </span><span class="si">{</span><span class="n">warehouse_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="create_database"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.create.create_database">[docs]</a><span class="k">def</span> <span class="nf">create_database</span><span class="p">(</span>
+    <span class="n">conn</span><span class="p">:</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">SnowflakeConnection</span> <span class="o">=</span> <span class="n">get_snowflake_connection</span><span class="p">(),</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mydb&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a database in Snowflake if it does not already exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    conn : snowflake.connector.connection.SnowflakeConnection</span>
+<span class="sd">        A connection to Snowflake</span>
+<span class="sd">    database_name : str</span>
+<span class="sd">        The name of the database to create</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None : None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CREATE DATABASE IF NOT EXISTS </span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="create_schema"><a class="viewcode-back" href="../../usage.html#snowflake_utilities.create.create_schema">[docs]</a><span class="k">def</span> <span class="nf">create_schema</span><span class="p">(</span>
+    <span class="n">conn</span><span class="p">:</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">SnowflakeConnection</span> <span class="o">=</span> <span class="n">get_snowflake_connection</span><span class="p">(),</span>
+    <span class="n">schema_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;myschema&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a schema in Snowflake if it does not already exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    conn : snowflake.connector.connection.SnowflakeConnection</span>
+<span class="sd">        A connection to Snowflake</span>
+<span class="sd">    schema_name : str</span>
+<span class="sd">        The name of the schema to create</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None : None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CREATE SCHEMA IF NOT EXISTS </span><span class="si">{</span><span class="n">schema_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">cs</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, James Twose.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
