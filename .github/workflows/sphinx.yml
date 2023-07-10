@@ -10,8 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build HTML
-      uses: ammaraskar/sphinx-action@0.4
+      uses: ammaraskar/sphinx-action@master
       with:
+        docs-folder: "docs/"
         pre-build-command: "apt-get update -y && apt-get install -y pandoc"
     - name: Upload artifacts
       uses: actions/upload-artifact@v1
