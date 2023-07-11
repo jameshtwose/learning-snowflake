@@ -63,6 +63,7 @@ def create_database(
 
 def create_schema(
     conn: snowflake.connector.connection.SnowflakeConnection = get_snowflake_connection(),
+    database_name: str = "mydb",
     schema_name: str = "myschema",
 ):
     """
@@ -81,5 +82,6 @@ def create_schema(
 
     """
     cs = conn.cursor()
+    _ = cs.execute(f"USE DATABASE {database_name}")
     _ = cs.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
     cs.close()

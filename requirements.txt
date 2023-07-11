@@ -2,4 +2,8 @@ snowflake-connector-python
 snowflake-sqlalchemy
 python-dotenv
 pandas
+polars
+pyspark
+pyarrow
 pytest
+pre-commit
